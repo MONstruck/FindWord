@@ -25,7 +25,6 @@ namespace WebApplication4.Controllers
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase file, string searchWord)
         {
-
             if (file != null && file.ContentLength > 0)
                 try
                 {
@@ -33,7 +32,6 @@ namespace WebApplication4.Controllers
                     StreamReader reader = new StreamReader(file.InputStream);
                     string textFile = reader.ReadToEnd();
                     Logic.ConvertToJson(textFile, word);
-
                     ViewBag.Message = "File uploaded successfully";
                 }
                 catch (Exception ex)
@@ -52,8 +50,6 @@ namespace WebApplication4.Controllers
             {
                 return View();
             }
-
         }
-
     }
 }

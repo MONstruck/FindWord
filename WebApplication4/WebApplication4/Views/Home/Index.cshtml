@@ -7,21 +7,21 @@
                         FormMethod.Post,
                         new { enctype = "multipart/form-data" }))
 {
-    <label for="file">Upload Image:</label>
+    <label for="file">Upload File:</label>
     <input type="file" name="file" id="file" /><br><br>
 
     <input type="text" name="searchWord" id="searchWord" /><br><br>
-    <input type="submit" value="Upload Image" />
+    <input type="submit" value="Upload File" />
 
     @ViewBag.Message
 }
-    <table>
-        <tr>
-            <th>Sentence</th>
-            <th>Word</th>
-        </tr>
-        @if (Model != null)
-        {
+<table>
+    <tr>
+        <th>Sentence</th>
+        <th>Word</th>
+    </tr>
+    @if (Model != null)
+    {
         foreach (var sentence in Model)
         {
             <tr>
@@ -31,5 +31,5 @@
             </tr>
         }
 
-        }
-        </table>
+    }
+</table>

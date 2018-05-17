@@ -12,13 +12,11 @@ namespace WebApplication4
 {
     public class Logic
     {
-
-
         private static List<string> FindSentence(string textFile)
         {
             List<string> sentences = new List<string>();
             string[] sentence = textFile.Split('.');
-            for (int i = 0; i < sentence.Length-1; i++)
+            for (int i = 0; i < sentence.Length - 1; i++)
             {
                 if (sentence[i] != null)
                 {
@@ -35,13 +33,14 @@ namespace WebApplication4
             char[] reverseSentence;
             foreach (var sentence in FindSentence(textFile))
             {
-                reverseSentence = sentence.ToArray();
-                Array.Reverse(reverseSentence);
-                string reverse = new String(reverseSentence);
-                sentece.Add(reverse);
+                if (sentence == word)
+                {
+                    reverseSentence = sentence.ToArray();
+                    Array.Reverse(reverseSentence);
+                    string reverse = new String(reverseSentence);
+                    sentece.Add(reverse);
+                }
             }
-
-
             return sentece;
         }
 
@@ -65,7 +64,6 @@ namespace WebApplication4
             return counter;
         }
 
-
         public static void ConvertToJson(string textFile, string word)
         {
             List<SentenceModel> sentenceModelsList = new List<SentenceModel>();
@@ -77,7 +75,6 @@ namespace WebApplication4
                     Word = word,
                     Sentence = sentece,
                     Number = Numbers(sentece, word)
-
                 };
                 sentenceModelsList.Add(sentenceModel);
             }
@@ -89,28 +86,28 @@ namespace WebApplication4
             var json = JsonConvert.SerializeObject(sentenceModelsList);
 
             File.WriteAllText(HttpContext.Current.Server.MapPath("Data/jsonFile.json"), json);
-
         }
 
-         public static List<SentenceModel> ConvertOut()
-         {
-            
-             List<SentenceModel> sentenceModelsList = new List<SentenceModel>();
-            string add="";
+        public static List<SentenceModel> ConvertOut()
+        {
+
+            List<SentenceModel> sentenceModelsList = new List<SentenceModel>();
+            string add = "";
             try
             {
-                 add = File.ReadAllText(HttpContext.Current.Server.MapPath("Data/jsonFile.json"));
+                add = File.ReadAllText(HttpContext.Current.Server.MapPath("Data/jsonFile.json"));
             }
             catch { }
-                var back = JsonConvert.DeserializeObject<List<SentenceModel>>(add);
+            var back = JsonConvert.DeserializeObject<List<SentenceModel>>(add);
             if (back != null)
             {
                 Reverese(back);
                 sentenceModelsList.AddRange(back);
-                
+
             }
             return sentenceModelsList;
         }
+
         private static List<SentenceModel> Reverese(List<SentenceModel> sentenceModelsList)
         {
             char[] reverseSentence;
